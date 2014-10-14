@@ -1,0 +1,13 @@
+# TravelTickets Config - loyloy.io
+# #
+# prefix - The prefix to show on ticket commands.
+# cost - The cost to create a ticket.
+# ticket_account - Any payments in the plugin will be deposited to this account.
+# effect - Should sparkles be shown when the player travels?
+# single_use - Destroy tickets after they are used?
+# #
+prefix: '[TravelTicket]'
+cost: 50.0
+ticket_account: ''
+effect: true
+single_use: true

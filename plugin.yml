@@ -1,0 +1,11 @@
+name: TravelTickets
+main: me.nonit.traveltickets.TravelTickets
+version: 0.2
+description: Tickets to warp!
+author: Melonking
+softdepend: [Vault]
+
+commands:
+  travelticket:
+    description: Make a ticket!
+    aliases: [ticket,tt]
