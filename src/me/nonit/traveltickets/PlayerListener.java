@@ -74,14 +74,14 @@ public class PlayerListener implements Listener
             Location from = p.getLocation();
             Location to = new Location( world, x, y, z );
 
-            p.teleport( to );
-            p.sendMessage( PREFIX + "Wooosh, you traveled to " + ChatColor.YELLOW + name + ChatColor.GREEN + "!" );
-
             // Destroy item
             if( SINGLE_USE )
             {
-                p.setItemInHand( new ItemStack( Material.AIR ) );
+                useItem( p );
             }
+
+            p.teleport( to );
+            p.sendMessage( PREFIX + "Wooosh, you traveled to " + ChatColor.YELLOW + name + ChatColor.GREEN + "!" );
 
             // Spawn particles
             if( EFFECT )
@@ -92,5 +92,19 @@ public class PlayerListener implements Listener
                 utils.spawnParticles( to );
             }
         }
+    }
+
+    private void useItem( Player player )
+    {
+        ItemStack handItems = player.getItemInHand();
+
+        if( handItems.getAmount() > 1 )
+        {
+            handItems.setAmount( handItems.getAmount() - 1 );
+            player.setItemInHand( handItems );
+            return;
+        }
+
+        player.setItemInHand( new ItemStack( Material.AIR ) );
     }
 }

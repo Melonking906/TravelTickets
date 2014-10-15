@@ -48,13 +48,27 @@ public class TravelTicketCommand implements CommandExecutor
 
         if( args.length < 1 )
         {
-            p.sendMessage( PREFIX + "Make a travel ticket to this spot with " + ChatColor.YELLOW + "/" + s + " <name>" + ChatColor.GREEN + " :D" );
+            p.sendMessage( PREFIX + "Make a travel ticket to this spot with " + ChatColor.YELLOW + "/" + s + " <name> (amount)" + ChatColor.GREEN + " :D" );
             return true;
         }
 
-        if( COST != 0 && e.getBalance( p ) < COST )
+        int quantity = 1;
+
+        if( args.length > 1 )
         {
-            p.sendMessage( PREFIX + ChatColor.RED + "It costs " + ChatColor.WHITE + e.format( COST ) + ChatColor.RED +
+            try
+            {
+                quantity = Integer.parseInt( args[1] );
+            }
+            catch( Exception e )
+            {
+                quantity = 1;
+            }
+        }
+
+        if( COST != 0 && e.getBalance( p ) < (COST * quantity) )
+        {
+            p.sendMessage( PREFIX + ChatColor.RED + "It costs " + ChatColor.WHITE + e.format( COST * quantity ) + ChatColor.RED +
                                                     " to make a ticket, you have " +
                                                     ChatColor.WHITE + e.format( e.getBalance( p ) ) + ChatColor.RED + " :(" );
             return true;
@@ -98,11 +112,11 @@ public class TravelTicketCommand implements CommandExecutor
 
         if( COST != 0 && ! p.hasPermission( "traveltickets.free" ) )
         {
-            e.withdrawPlayer( p, COST );
+            e.withdrawPlayer( p, COST * quantity );
 
             if( ! TICKET_ACCOUNT.equals( "" ) )
             {
-                e.depositPlayer( TICKET_ACCOUNT, COST );
+                e.depositPlayer( TICKET_ACCOUNT, COST * quantity );
             }
 
             p.sendMessage( PREFIX + "You payed " + ChatColor.YELLOW + e.format( COST ) + ChatColor.GREEN +
