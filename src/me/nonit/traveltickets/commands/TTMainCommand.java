@@ -20,7 +20,7 @@ public class TTMainCommand extends TTSubCommand
     {
         if( ! (sender instanceof Player ) )
         {
-            sender.sendMessage( PREFIX + ChatColor.RED + "You must be a player to make tickets!" );
+            sender.sendMessage( PREFIX + ChatColor.RED + "Use \"/" + commandLabel + " give\" to give tickets from the console!" );
             return true;
         }
 
@@ -34,7 +34,7 @@ public class TTMainCommand extends TTSubCommand
 
         if( args.length < 1 )
         {
-            p.sendMessage( PREFIX + "Make a travel ticket to this spot with " + ChatColor.YELLOW + "/" + commandLabel + " <name> (amount)" + ChatColor.GREEN + " :D" );
+            p.sendMessage( PREFIX + "Make a travel ticket to this spot with " + ChatColor.YELLOW + "/" + commandLabel + " <name>" + ChatColor.GREEN + " :D" );
             return true;
         }
 

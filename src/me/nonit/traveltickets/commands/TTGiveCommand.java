@@ -34,7 +34,7 @@ public class TTGiveCommand extends TTSubCommand
 
         Player p = Bukkit.getPlayer( args[1] );
 
-        if( ! p.isOnline() )
+        if( p == null )
         {
             sender.sendMessage( PREFIX + ChatColor.RED + "Sorry but " +  ChatColor.WHITE + args[1] + ChatColor.RED + " is not online :(" );
             return true;
@@ -73,7 +73,7 @@ public class TTGiveCommand extends TTSubCommand
             return true;
         }
 
-        if( world.getName() == null )
+        if( world == null )
         {
             sender.sendMessage( PREFIX + ChatColor.RED + "Erm.. there is no world called " + ChatColor.WHITE + args[3] + ChatColor.RED +" on this server!" );
             return true;
@@ -87,7 +87,7 @@ public class TTGiveCommand extends TTSubCommand
         i.addItem( ticket );
 
         sender.sendMessage( PREFIX + "Success! You gave a ticket called " + ChatColor.YELLOW + name + ChatColor.GREEN + " to " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GREEN + "!" );
-        p.sendMessage( PREFIX + "Good news! You received a travel ticket to " + ChatColor.YELLOW + name + ChatColor.GREEN + " from " + ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + "!" );
+        p.sendMessage( PREFIX + "You received a travel ticket to " + ChatColor.YELLOW + name + ChatColor.GREEN + " from " + ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + "!" );
 
         return true;
     }
