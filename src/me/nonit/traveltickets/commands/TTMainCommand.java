@@ -86,8 +86,8 @@ public class TTMainCommand extends TTSubCommand
                 ECONOMY.depositPlayer( TICKET_ACCOUNT, COST * quantity );
             }
 
-            p.sendMessage( PREFIX + "You payed " + ChatColor.YELLOW + ECONOMY.format( COST ) + ChatColor.GREEN +
-                    " for the ticket to " + ChatColor.YELLOW + name + ChatColor.GREEN + "!" );
+            p.sendMessage( PREFIX + "You payed " + ChatColor.YELLOW + ECONOMY.format( COST * quantity ) + ChatColor.GREEN +
+                    " for the ticket(s) to " + ChatColor.YELLOW + name + ChatColor.GREEN + "!" );
         }
 
         return true;
