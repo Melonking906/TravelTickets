@@ -1,6 +1,6 @@
 package me.nonit.traveltickets;
 
-import me.nonit.traveltickets.commands.TravelTicketCommand;
+import me.nonit.traveltickets.commands.TTCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -54,7 +54,7 @@ public class TravelTickets extends JavaPlugin
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents( new PlayerListener(), this );
 
-        getCommand("travelticket").setExecutor( new TravelTicketCommand() );
+        getCommand("travelticket").setExecutor( new TTCommand() );
     }
 
     private boolean setupEconomy()

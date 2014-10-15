@@ -71,6 +71,12 @@ public class PlayerListener implements Listener
             double z = Double.parseDouble( blockStrings[2] );
             World world = Bukkit.getServer().getWorld( worldString );
 
+            if( ! Bukkit.getServer().getWorlds().contains( world ) )
+            {
+                p.sendMessage( PREFIX + ChatColor.RED + "Looks like the world " + ChatColor.WHITE + worldString + ChatColor.RED + " is unavailable right now :(" );
+                return;
+            }
+
             Location from = p.getLocation();
             Location to = new Location( world, x, y, z );
 

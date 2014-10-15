@@ -1,15 +1,41 @@
 package me.nonit.traveltickets;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Location;
+import org.bukkit.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class TTUtils
 {
     public TTUtils()
     {
+    }
+
+    public ItemStack makeTicket( String name, Location location, int quantity )
+    {
+        name = ChatColor.translateAlternateColorCodes( '&', name );
+        if( name.length() > 8 )
+        {
+            name = name.substring( 0, 7 );
+        }
+
+        String displayName = ChatColor.GOLD + "Travel Ticket:" + ChatColor.WHITE + " " + name;
+        List<String> lore = new ArrayList<String>();
+        lore.add( ChatColor.YELLOW + "Warp to " + name );
+        lore.add( ChatColor.GREEN + "Right click to warp!" );
+        lore.add( ChatColor.GRAY + "" + location.getBlockX() + "/" + location.getBlockY() + "/" + location.getBlockZ() );
+        lore.add( ChatColor.GRAY + location.getWorld().getName() );
+
+        ItemStack ticket = new ItemStack( Material.PAPER, quantity );
+        ItemMeta im = ticket.getItemMeta();
+        im.setDisplayName( displayName );
+        im.setLore( lore );
+        ticket.setItemMeta( im );
+
+        return ticket;
     }
 
     public void spawnParticles( Location location )
