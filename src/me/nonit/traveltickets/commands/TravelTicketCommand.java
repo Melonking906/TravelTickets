@@ -100,7 +100,7 @@ public class TravelTicketCommand implements CommandExecutor
         lore.add( ChatColor.GRAY + "" + l.getBlockX() + "/" + l.getBlockY() + "/" + l.getBlockZ() );
         lore.add( ChatColor.GRAY + l.getWorld().getName() );
 
-        ItemStack ticket = new ItemStack( Material.PAPER, 1 );
+        ItemStack ticket = new ItemStack( Material.PAPER, quantity );
         ItemMeta im = ticket.getItemMeta();
         im.setDisplayName( displayName );
         im.setLore( lore );
