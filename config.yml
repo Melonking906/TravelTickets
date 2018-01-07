@@ -1,4 +1,4 @@
-# TravelTickets Config - loyloy.io
+# TravelTickets Config - meloncraft.com
 # #
 # prefix - The prefix to show on ticket commands.
 # cost - The cost to create a ticket.
@@ -7,7 +7,7 @@
 # single_use - Destroy tickets after they are used?
 # #
 prefix: '[TravelTicket]'
-cost: 50.0
+cost: 5.0
 ticket_account: ''
 effect: true
 single_use: true

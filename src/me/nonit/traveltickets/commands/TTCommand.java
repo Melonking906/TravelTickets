@@ -13,7 +13,7 @@ public class TTCommand implements CommandExecutor
 
     public TTCommand()
     {
-        commands = new ArrayList<TTSubCommand>();
+        commands = new ArrayList<>();
 
         commands.add( new TTMainCommand() );
         commands.add( new TTGiveCommand() );

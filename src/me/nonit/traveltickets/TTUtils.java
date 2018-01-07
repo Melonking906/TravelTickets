@@ -42,7 +42,7 @@ public class TTUtils
     {
         Location newLocation = location.add( 0, 1.2, 0 );
 
-        HashSet<ChordObject> chords = new HashSet<ChordObject>();
+        HashSet<ChordObject> chords = new HashSet<>();
         chords.add( new ChordObject( 0.6D, 0.4D ) );
         chords.add( new ChordObject( 0.4D, 0.8D ) );
         chords.add( new ChordObject( 0.0D, 0.6D ) );
@@ -54,7 +54,7 @@ public class TTUtils
         for( ChordObject chord : chords )
         {
             newLocation.add( chord.getX(), y, chord.getZ() );
-            Bukkit.getWorld( location.getWorld().getUID() ).playEffect( newLocation, Effect.HAPPY_VILLAGER, 20+(((int)y)*10) );
+            Bukkit.getWorld( location.getWorld().getUID() ).spawnParticle( Particle.VILLAGER_HAPPY, newLocation, 20+(((int)y)*10) );
             newLocation.subtract( chord.getX(), 0, chord.getZ() );
             y += 0.02;
         }

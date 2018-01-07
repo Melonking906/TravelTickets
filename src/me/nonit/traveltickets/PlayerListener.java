@@ -6,10 +6,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class PlayerListener implements Listener
 {
@@ -17,8 +21,11 @@ public class PlayerListener implements Listener
     private static final boolean EFFECT = TravelTickets.isEffect();
     private static final boolean SINGLE_USE = TravelTickets.isSingleUse();
 
+    private final HashMap<UUID,Long> cooldown;
+
     public PlayerListener()
     {
+        this.cooldown = new HashMap<>();
     }
 
     @EventHandler
@@ -27,7 +34,7 @@ public class PlayerListener implements Listener
         if( e.getAction().equals( Action.RIGHT_CLICK_AIR ) || e.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
         {
             Player p = e.getPlayer();
-            ItemStack i = p.getItemInHand();
+            ItemStack i = p.getInventory().getItemInMainHand();
 
             if( !i.getType().equals( Material.PAPER ) )
             {
@@ -41,6 +48,19 @@ public class PlayerListener implements Listener
                 return;
             }
 
+            //Cooldown Mech
+
+            long now = Instant.now().getEpochSecond();
+            Long playerCooldown = cooldown.get( p.getUniqueId() );
+
+            if( playerCooldown != null && now < (playerCooldown + 1) )
+            {
+                return; //Player is within the cooldown time.
+            }
+
+            cooldown.put( p.getUniqueId(), now );
+
+            //Continue
             if( !p.hasPermission( "traveltickets.use" ) )
             {
                 p.sendMessage( PREFIX + ChatColor.RED + "Sorry, but you don't have permission to use travel tickets." );
@@ -100,17 +120,24 @@ public class PlayerListener implements Listener
         }
     }
 
+    @EventHandler
+    public void onPlayerQuit( PlayerQuitEvent e )
+    {
+        //Remove cooldown to save server memory.
+        cooldown.remove( e.getPlayer().getUniqueId() );
+    }
+
     private void useItem( Player player )
     {
-        ItemStack handItems = player.getItemInHand();
+        ItemStack handItems = player.getInventory().getItemInMainHand();
 
         if( handItems.getAmount() > 1 )
         {
             handItems.setAmount( handItems.getAmount() - 1 );
-            player.setItemInHand( handItems );
+            player.getInventory().setItemInMainHand( handItems );
             return;
         }
 
-        player.setItemInHand( new ItemStack( Material.AIR ) );
+        player.getInventory().setItemInMainHand( new ItemStack( Material.AIR ) );
     }
 }
